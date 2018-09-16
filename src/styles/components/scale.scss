@@ -1,0 +1,28 @@
+.scale {
+  display: flex;
+  flex-direction: column;
+
+  &__options {
+    display: flex;
+
+    &__option {
+      width: 74px;
+      height: 74px;
+      margin-left: 5px;
+      background: #F2F3F4;
+
+      &:hover,
+      &--selected {
+        background: $dark-purple;
+      }
+
+      &:hover {
+        @include cursor-pointer;
+      }
+
+      &--no-hover {
+        pointer-events: none;
+      }
+    }
+  }
+}

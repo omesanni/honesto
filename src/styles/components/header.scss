@@ -1,0 +1,29 @@
+.header {
+  @include border-shadow;
+  background: #F2F3F4;
+  padding-left: 130px;
+
+  .navbar {
+    .navbar-brand {
+      flex: 0.25;
+      font-size: 24px;
+    }
+
+    .navbar-nav {
+      width: 100%;
+    }
+
+    .nav-item {
+      padding: 0.5rem 0;
+      margin-left: 80px;
+
+      &.active {
+        border-bottom: 3px solid $purple;
+      }
+
+      .nav-link {
+        color: $black;
+      }
+    }
+  }
+}

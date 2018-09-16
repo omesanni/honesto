@@ -1,0 +1,7 @@
+@mixin cursor-pointer {
+  cursor: pointer
+}
+
+@mixin border-shadow {
+  box-shadow: 0 0 4px rgba($black, 0.25);
+}

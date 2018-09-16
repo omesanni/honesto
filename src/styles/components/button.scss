@@ -1,0 +1,50 @@
+.btn {
+  text-align: center;
+  background-color: $white;
+  border: 1px solid #D9DCDE;
+  box-sizing: border-box;
+  color: #031323;
+  min-width: 150px;
+
+  &:focus {
+    box-shadow: none;
+  }
+
+  &:disabled,
+  &:disabled:hover {
+    color: $white;
+    background-color: $light-gray;
+    border-color: $light-gray;
+  }
+
+  &:hover {
+    color: #031323;
+    border-color: #D9DCDE;
+    background-color: #F2F3F4;
+  }
+}
+
+.btn-primary {
+  text-align: center;
+  border-radius: 4px;
+  background-color: $purple;
+  border-color: $purple;
+  box-sizing: border-box;
+  color: $white;
+
+  &:hover {
+    color: $white;
+    border-color: darken($purple, 25%);
+    background-color: darken($purple, 20%);
+  }
+
+  &--dark {
+    border-color: $dark-purple;
+    background-color: $dark-purple;
+
+    &:hover {
+      border-color: lighten($dark-purple, 10%);
+      background-color: lighten($dark-purple, 10%);
+    }
+  }
+}

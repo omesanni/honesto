@@ -1,0 +1,87 @@
+.shared-feedback-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 57px;
+
+  .feedback-wizard {
+    width: 60%;
+
+    &__go-back {
+      display: flex;
+      align-items: center;
+      margin-bottom: 23px;
+
+      .sub-title {
+        margin-left: 9px;
+      }
+
+      &:hover {
+        @include cursor-pointer;
+      }
+    }
+
+    &__step {
+      display: none;
+
+      &--current-step {
+        display: block;
+      }
+    }
+
+    .question-section {
+      display: flex;
+      justify-content: space-between;
+
+      &__left {
+        flex: 0.8;
+
+        .sub-title {
+          color: $light-gray;
+        }
+      }
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 21px;
+    }
+  }
+
+  .team-members {
+    width: 50%;
+
+    .member-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #59636E;
+
+      &:hover {
+        color: $black;
+        background-color: lighten($purple, 34%);
+      }
+    }
+
+    .profile {
+      > small {
+        margin-left: 29px;
+      }
+    }
+
+    .feedback-control {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &__title {
+        flex: 1;
+      }
+
+      &__select {
+        flex: 0.5;
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+.multi-choice-options {
+  font-size: 16px;
+
+  &__option {
+    background: #F2F3F4;
+    border-radius: 3px;
+    padding: 19px 31px;
+
+    &:hover,
+    &--selected {
+      @include cursor-pointer;
+      color: $white;
+      background: #59636E;
+    }
+  }
+
+  &__option:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}

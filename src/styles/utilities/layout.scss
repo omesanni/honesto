@@ -1,0 +1,15 @@
+.sub-title {
+  @include sub-title;
+}
+
+.purple-bg {
+  background: $purple;
+}
+
+.text-muted {
+  color: $light-gray;
+}
+
+.light-gray-bg {
+  background: $light-gray;
+}

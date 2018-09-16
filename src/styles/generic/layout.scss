@@ -1,0 +1,10 @@
+body {
+  color: $dark;
+}
+
+.form-control {
+  &::placeholder {
+    font-size: 16px;
+    color: $light-gray;
+  }
+}
