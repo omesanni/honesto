@@ -33,7 +33,6 @@ class ShareFeedback extends React.Component {
     this.hasGivenFeedBackToMember = this.hasGivenFeedBackToMember.bind(this);
     this.renderViewSubmissionModal = this.renderViewSubmissionModal.bind(this);
     this.renderTeamMembersList = this.renderTeamMembersList.bind(this);
-    this.renderFeedBackCompletedView = this.renderFeedBackCompletedView.bind(this);
     this.toggleFeedbackWizard = this.toggleFeedbackWizard.bind(this);
     this.handleFeedBackSubmission = this.handleFeedBackSubmission.bind(this);
     this.handleViewFeedbackSubmission = this.handleViewFeedbackSubmission.bind(this);
@@ -141,106 +140,91 @@ class ShareFeedback extends React.Component {
   }
 
   /**
-   * Renders view user sees when feedback wizard is completed
+   * Renders list of team members
    * @return {JSX}
    */
-  renderFeedBackCompletedView() {
-    const members = this.props.teamMembers
-      .filter(member => !this.hasGivenFeedBackToMember(member));
+  renderTeamMembersList() {
+    const { feedbackWizardCompleted } = this.state;
+    let { teamMembers } = this.props;
+
+    // if wizard was just completed display only team members
+    // that haven't received feedback
+    if (feedbackWizardCompleted) {
+      teamMembers = teamMembers.filter(member => !this.hasGivenFeedBackToMember(member));
+    }
+
+    const morefeedBackTobeGiven = feedbackWizardCompleted && !!teamMembers.length;
 
     return (
-      <div>
-        <h2>{'Thank you for sharing your feeedback!'}</h2>
-        <p>{'Continue to give feedback to other team members.'}</p>
+      <div className={'team-members'}>
+        {feedbackWizardCompleted ? (
+          <div>
+            <h2>{'Thank you for sharing your feeedback!'}</h2>
+            {morefeedBackTobeGiven && (
+              <p>{'Continue to give feedback to other team members.'}</p>
+            )}
+          </div>
+        ) : (
+          <div className={'feedback-control'}>
+            <h2 className={'feedback-control__title'}>
+              {'Share Feedback'}
+            </h2>
+
+            <div className={'feedback-control__select form-group'}>
+              <label htmlFor={'feedback-period'}>
+                {'Feedback Period'}
+              </label>
+              <select
+                id={'feedback-period'}
+                className={'form-control'}
+                defaultValue={this.state.selectedPeriod}
+                onChange={(e) => {
+                  const { value } = e.target;
+
+                  this.setState(() => ({
+                    selectedPeriod: Number(value),
+                  }));
+                }}
+              >
+                {PERIOD_OPTIONS.map(opt => (
+                  <option
+                    key={opt.id}
+                    value={opt.id}
+                    disabled={opt.id > CURRENT_MONTH}
+                  >
+                    {opt.month}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        )}
 
         <div className={'card'}>
-          <TeamMembers members={members}>
+          <TeamMembers
+            members={teamMembers.length ? teamMembers : this.props.teamMembers}
+          >
             {member => (
               <div>
-                {!this.hasGivenFeedBackToMember(member) && (
+                {!this.hasGivenFeedBackToMember(member) ? (
                   <button
                     className={'btn btn-primary w-100'}
                     onClick={() => this.toggleFeedbackWizard(member)}
                   >
                     {'Fill Out'}
                   </button>
+                ) : (
+                  <button
+                    className={'btn w-100'}
+                    onClick={() => this.handleViewFeedbackSubmission(member)}
+                  >
+                    {'View Submission'}
+                  </button>
                 )}
               </div>
             )}
           </TeamMembers>
         </div>
-      </div>
-    );
-  }
-
-  /**
-   * Renders list of team members
-   * @return {JSX}
-   */
-  renderTeamMembersList() {
-    return (
-      <div className={'team-members'}>
-        {this.state.feedbackWizardCompleted ? this.renderFeedBackCompletedView() : (
-          <Fragment>
-            <div className={'feedback-control'}>
-              <h2 className={'feedback-control__title'}>
-                {'Share Feedback'}
-              </h2>
-
-              <div className={'feedback-control__select form-group'}>
-                <label htmlFor={'feedback-period'}>
-                  {'Feedback Period'}
-                </label>
-                <select
-                  id={'feedback-period'}
-                  className={'form-control'}
-                  defaultValue={this.state.selectedPeriod}
-                  onChange={(e) => {
-                    const { value } = e.target;
-
-                    this.setState(() => ({
-                      selectedPeriod: Number(value),
-                    }));
-                  }}
-                >
-                  {PERIOD_OPTIONS.map(opt => (
-                    <option
-                      key={opt.id}
-                      value={opt.id}
-                      disabled={opt.id > CURRENT_MONTH}
-                    >
-                      {opt.month}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <div className={'card'}>
-              <TeamMembers members={this.props.teamMembers}>
-                {member => (
-                  <div>
-                    {!this.hasGivenFeedBackToMember(member) ? (
-                      <button
-                        className={'btn btn-primary w-100'}
-                        onClick={() => this.toggleFeedbackWizard(member)}
-                      >
-                        {'Fill Out'}
-                      </button>
-                    ) : (
-                      <button
-                        className={'btn w-100'}
-                        onClick={() => this.handleViewFeedbackSubmission(member)}
-                      >
-                        {'View Submission'}
-                      </button>
-                    )}
-                  </div>
-                )}
-              </TeamMembers>
-            </div>
-          </Fragment>
-        )}
       </div>
     );
   }
