@@ -184,6 +184,7 @@ class ShareFeedback extends React.Component {
 
                   this.setState(() => ({
                     selectedPeriod: Number(value),
+                    feedbackWizardCompleted: false,
                   }));
                 }}
               >
