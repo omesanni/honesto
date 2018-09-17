@@ -157,14 +157,15 @@ class ShareFeedback extends React.Component {
 
     return (
       <div className={'team-members'}>
-        {feedbackWizardCompleted ? (
+        {feedbackWizardCompleted && (
           <div>
             <h2>{'Thank you for sharing your feeedback!'}</h2>
             {morefeedBackTobeGiven && (
               <p>{'Continue to give feedback to other team members.'}</p>
             )}
           </div>
-        ) : (
+        )}
+        {(!feedbackWizardCompleted || (feedbackWizardCompleted && !morefeedBackTobeGiven)) && (
           <div className={'feedback-control'}>
             <h2 className={'feedback-control__title'}>
               {'Share Feedback'}
